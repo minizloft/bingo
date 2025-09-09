@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bingo Float</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+  input[type='number'] {
+    width: 60px; 
+  } 
+</style>
+    <script>
+        function split() {
+            const fives = document.getElementById("fives").value;
+            const toonies = document.getElementById("toonies").value;
+            const loonies = document.getElementById("loonies").value;
+            const quarters = document.getElementById("quarters").value;
+            distributeMoney4(fives, toonies, loonies, quarters);
+        }
+        
+function distributeMoney4(fives, toonies, loonies, quarters) {
+  const root = document.getElementById('root');
+  root.innerHTML = "";
+
+  const numBuckets = 6;
+  const bucketValue = 15 * 100; // $15 in cents
+
+  const totalCents =
+    fives * 500 + toonies * 200 + loonies * 100 + quarters * 25;
+
+  if (totalCents !==  numBuckets * bucketValue) {
+    root.innerHTML += `❌ Total must equal $90. Currently: $${(totalCents / 100).toFixed(2)}`;
+    return;
+  }
+
+  const buckets = Array.from({ length: numBuckets }, () => ({
+    fives: 0,
+    toonies: 0,
+    loonies: 0,
+    quarters: 0,
+    value: 0,
+  }));
+
+  const remaining = { fives, toonies, loonies, quarters };
+  const coinValues = { fives: 500, toonies: 200, loonies: 100, quarters: 25 };
+  const keys = ["fives", "toonies", "loonies", "quarters"];
+
+  Object.keys(remaining).forEach(key => {
+    console.log('Key : ' + key + ', Value : ' + remaining[key])
+
+    let distribute = true;
+    while (remaining[key] > 0 && distribute) {
+        distribute = false;
+        for (const b of buckets) {
+            if (remaining[key] > 0 && b.value + coinValues[key] <= bucketValue) {
+                b[key] += 1;
+                b.value += coinValues[key];
+                --remaining[key];
+                distribute = true;
+            }
+        }
+    }
+  })
+
+  root.innerHTML += "✅ Buckets distribution:";
+  buckets.forEach((b, i) => {
+    root.innerHTML += 
+      `<div>Bucket ${i + 1}: $${(b.value / 100).toFixed(2)} → ` +
+      `${b.fives}x$5, ${b.toonies}x$2, ${b.loonies}x$1, ${b.quarters}x$0.25</div>`
+    ;
+  });
+}
+    </script>
+</head>
+  <body>
+    <h1>Bingo Floats</h1>
+    <form onsubmit="event.preventDefault(); split();">
+        <label for="fives">Fives: </label>
+        <input type="number" id="fives" name="fives" min="0" max="18" step="1" value="2">
+        <label for="toonies">Toonies: </label>
+        <input type="number" id="toonies" name="toonies" min="0" max="45" step="1" value="20">
+        <label for="loonies">Loonies: </label>
+        <input type="number" id="loonies" name="loonies" min="0" max="90" step="1" value="30">
+        <label for="quarters">Quarters: </label>
+        <input type="number" id="quarters" name="quarters" min="0" max="360" step="1" value="40">
+        <input type="submit" value="Split">
+        <input type="reset">
+    </form>
+    <div id="root">
+    </div>
+  </body>
+</html>
