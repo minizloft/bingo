@@ -3,12 +3,71 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bingo Float</title>
+    <title>Bingo: Assistant Manger</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+    <script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
+      
     <style>
-  input[type='number'] {
-    width: 60px; 
-  } 
+  table {
+    margin: 25px 25px 25px 25px;
+  }
+  td {
+    border: 1px solid black; /* Applies borders to the table, headers, and data cells */
+  }
+
+  input[id^='spinner'] {
+    width:25px;
+    height:25px
+  }
+.parent {
+display: grid;
+grid-template-columns: 0.5fr repeat(3, 1fr) 0.5fr repeat(3, 1fr);
+grid-template-rows: 0.5fr repeat(5, 1fr);
+grid-column-gap: 10px;
+grid-row-gap: 10px;
+}
+.div1 { grid-area: 1 / 1 / 2 / 2; }
+.div2 { grid-area: 1 / 2 / 2 / 3; }
+.div3 { grid-area: 1 / 3 / 2 / 4; }
+.div4 { grid-area: 1 / 4 / 2 / 5; }
+.div5 { grid-area: 1 / 5 / 2 / 6; }
+.div6 { grid-area: 1 / 6 / 2 / 7; }
+.div7 { grid-area: 1 / 7 / 2 / 8; }
+.div8 { grid-area: 1 / 8 / 2 / 9; }
+.div9 { grid-area: 2 / 1 / 3 / 2; }
+.div10 { grid-area: 2 / 2 / 3 / 3; }
+.div11 { grid-area: 2 / 3 / 3 / 4; }
+.div12 { grid-area: 2 / 4 / 3 / 5; }
+.div13 { grid-area: 2 / 6 / 3 / 7; }
+.div14 { grid-area: 2 / 7 / 3 / 8; }
+.div15 { grid-area: 2 / 8 / 3 / 9; }
+.div16 { grid-area: 3 / 1 / 4 / 2; }
+.div17 { grid-area: 3 / 2 / 4 / 3; }
+.div18 { grid-area: 3 / 3 / 4 / 4; }
+.div19 { grid-area: 3 / 4 / 4 / 5; }
+.div20 { grid-area: 3 / 6 / 4 / 7; }
+.div21 { grid-area: 3 / 7 / 4 / 8; }
+.div22 { grid-area: 3 / 8 / 4 / 9; }
+.div23 { grid-area: 4 / 1 / 5 / 2; }
+.div24 { grid-area: 4 / 2 / 5 / 3; }
+.div25 { grid-area: 4 / 3 / 5 / 4; }
+.div26 { grid-area: 4 / 4 / 5 / 5; }
+.div27 { grid-area: 4 / 6 / 5 / 7; }
+.div28 { grid-area: 4 / 7 / 5 / 8; }
+.div29 { grid-area: 4 / 8 / 5 / 9; }
+.div30 { grid-area: 5 / 1 / 6 / 2; }
+.div31 { grid-area: 5 / 2 / 6 / 3; }
+.div32 { grid-area: 5 / 3 / 6 / 4; }
+.div33 { grid-area: 5 / 4 / 6 / 5; }
+.div34 { grid-area: 5 / 6 / 6 / 7; }
+.div35 { grid-area: 5 / 7 / 6 / 8; }
+.div36 { grid-area: 5 / 8 / 6 / 9; }
+.div37 { grid-area: 6 / 1 / 7 / 2; }
 </style>
     <script>
         function split() {
@@ -20,7 +79,7 @@
         }
         
 function distributeMoney4(fives, toonies, loonies, quarters) {
-  const root = document.getElementById('root');
+  const root = document.getElementById('float_root');
   root.innerHTML = "";
 
   const numBuckets = 6;
@@ -71,39 +130,123 @@ function distributeMoney4(fives, toonies, loonies, quarters) {
     ;
   });
 }
+
+$( function() {
+  for (let i = 1; i <= 37; i++) {
+    $( `#spinner${i}` ).spinner({ 
+      min: 0,
+      spin: ( event, ui ) => {
+        let total = 0;
+        for (let i = 1; i <= 37; i++) {
+          let id = `spinner${i}`
+          total += (event.target.id == id) ? ui.value : $( `#${id}` ).spinner( "value" );
+        }
+        const root = document.getElementById('attendee_root');
+        root.innerHTML = total;
+      }
+    });
+  }
+});
     </script>
 </head>
   <body>
-    <h1>Bingo Floats</h1>
+    <h1>Assistant Manager</h1>
     <hr/>
-    <h2>Example</h2>
+    <h2>Floats</h2>
     <div>
-      Fives: <input type="text" readonly size="5" value="2">
-      Toonies: <input type="text" readonly size="5" value="10">
-      Loonies: <input type="text" readonly size="5" value="40">
-      Quarters: <input type="text" readonly size="5" value="80">
+      $5: <input type="text" readonly size="5" value="2">
+      $2: <input type="text" readonly size="5" value="10">
+      $1: <input type="text" readonly size="5" value="40">
+      $0.25: <input type="text" readonly size="5" value="80">
     </div>
-    ✅ Buckets distribution:
-    <div>Bucket 1: $15.00 → 1x$5, 1x$2, 5x$1, 12x$0.25</div>
-    <div>Bucket 2: $15.00 → 1x$5, 1x$2, 5x$1, 12x$0.25</div>
-    <div>Bucket 3: $15.00 → 0x$5, 2x$2, 8x$1, 12x$0.25</div>
-    <div>Bucket 4: $15.00 → 0x$5, 2x$2, 8x$1, 12x$0.25</div>
-    <div>Bucket 5: $15.00 → 0x$5, 2x$2, 7x$1, 16x$0.25</div>
-    <div>Bucket 6: $15.00 → 0x$5, 2x$2, 7x$1, 16x$0.25</div>
-    <hr/>
-    <form onsubmit="event.preventDefault(); split();">
-        <label for="fives">Fives: </label>
+
+    <table>
+      <tr>
+        <th></th></th><th>$5</th><th>$2</th><th>$1</th><th>$0.25</th>
+      </tr>
+      <tr>
+        <th>Bucket 1</th><td>1</td><td>1</td><td>5</td><td>12</td>
+      </tr>
+      <tr>
+        <th>Bucket 2</th><td>1</td><td>1</td><td>5</td><td>12</td>
+      </tr>
+      <tr>
+        <th>Bucket 3</th><td>0</td><td>2</td><td>8</td><td>12</td>
+      </tr>
+      <tr>
+        <th>Bucket 4</th><td>0</td><td>2</td><td>8</td><td>12</td>
+      </tr>
+      <tr>
+        <th>Bucket 5</th><td>0</td><td>2</td><td>7</td><td>16</td>
+      </tr>
+      <tr>
+        <th>Bucket 6 </th><td>0</td><td>2</td><td>7</td><td>16</td>
+      </tr>
+    </table>
+
+    <form onsubmit="event.preventDefault(); split();" onreset="document.getElementById('float_root').innerHTML = '';">
+        <label for="fives">$5: </label>
         <input type="number" id="fives" name="fives" min="0" max="18" step="1" value="2">
-        <label for="toonies">Toonies: </label>
+        <label for="toonies">$2: </label>
         <input type="number" id="toonies" name="toonies" min="0" max="45" step="1" value="10">
-        <label for="loonies">Loonies: </label>
+        <label for="loonies">$1: </label>
         <input type="number" id="loonies" name="loonies" min="0" max="90" step="1" value="40">
-        <label for="quarters">Quarters: </label>
+        <label for="quarters">$0.25: </label>
         <input type="number" id="quarters" name="quarters" min="0" max="360" step="1" value="80">
         <input type="submit" value="Split">
         <input type="reset">
     </form>
-    <div id="root">
+
+    <div id="float_root">
     </div>
+
+    <hr/>
+    <h2>Attendees</h2>
+     <form onsubmit="event.preventDefault();" onreset="document.getElementById('attendee_root').innerHTML = '';">
+      <div class="parent">
+        <div class="div1"><input id="spinner1"></div>
+        <div class="div2"><input id="spinner2"></div>
+        <div class="div3"><input id="spinner3"></div>
+        <div class="div4"><input id="spinner4"></div>
+        <div class="div5"><input id="spinner5"></div>
+        <div class="div6"><input id="spinner6"></div>
+        <div class="div7"><input id="spinner7"></div>
+        <div class="div8"><input id="spinner8"></div>
+        <div class="div9"><input id="spinner9"></div>
+        <div class="div10"><input id="spinner10"></div>
+        <div class="div11"><input id="spinner11"></div>
+        <div class="div12"><input id="spinner12"></div>
+        <div class="div13"><input id="spinner13"></div>
+        <div class="div14"><input id="spinner14"></div>
+        <div class="div15"><input id="spinner15"></div>
+        <div class="div16"><input id="spinner16"></div>
+        <div class="div17"><input id="spinner17"></div>
+        <div class="div18"><input id="spinner18"></div>
+        <div class="div19"><input id="spinner19"></div>
+        <div class="div20"><input id="spinner20"></div>
+        <div class="div21"><input id="spinner21"></div>
+        <div class="div22"><input id="spinner22"></div>
+        <div class="div23"><input id="spinner23"></div>
+        <div class="div24"><input id="spinner24"></div>
+        <div class="div25"><input id="spinner25"></div>
+        <div class="div26"><input id="spinner26"></div>
+        <div class="div27"><input id="spinner27"></div>
+        <div class="div28"><input id="spinner28"></div>
+        <div class="div29"><input id="spinner29"></div>
+        <div class="div30"><input id="spinner30"></div>
+        <div class="div31"><input id="spinner31"></div>
+        <div class="div32"><input id="spinner32"></div>
+        <div class="div33"><input id="spinner33"></div>
+        <div class="div34"><input id="spinner34"></div>
+        <div class="div35"><input id="spinner35"></div>
+        <div class="div36"><input id="spinner36"></div>
+        <div class="div37"><input id="spinner37"></div>
+      </div>
+      <input type="reset">
+     </form>
+
+    <div id="attendee_root">
+    </div>
+
   </body>
 </html>
