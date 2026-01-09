@@ -16,8 +16,16 @@
   table {
     margin: 25px 25px 25px 25px;
   }
+  th {
+    padding: 5px;
+    text-align: center;      /* Horizontal centering */
+    vertical-align: middle;  /* Vertical centering */
+  }
   td {
     border: 1px solid black; /* Applies borders to the table, headers, and data cells */
+    text-align: center;      /* Horizontal centering */
+    vertical-align: middle;  /* Vertical centering */
+    font-style: italic;
   }
 
   input[id^='spinner'] {
@@ -71,6 +79,7 @@ grid-row-gap: 10px;
 </style>
     <script>
         function split() {
+            reset_split();
             const fives = document.getElementById("fives").value;
             const toonies = document.getElementById("toonies").value;
             const loonies = document.getElementById("loonies").value;
@@ -122,13 +131,31 @@ function distributeMoney4(fives, toonies, loonies, quarters) {
     }
   })
 
-  root.innerHTML += "✅ Buckets distribution:";
+  /*root.innerHTML += "✅ Buckets distribution:";
   buckets.forEach((b, i) => {
     root.innerHTML += 
       `<div>Bucket ${i + 1}: $${(b.value / 100).toFixed(2)} → ` +
       `${b.fives}x$5, ${b.toonies}x$2, ${b.loonies}x$1, ${b.quarters}x$0.25</div>`
     ;
+  });*/
+  buckets.forEach((b, i) => {
+    document.getElementById(`b${i + 1}_500`).innerHTML = (b.fives > 0) ? b.fives : '-';
+    document.getElementById(`b${i + 1}_200`).innerHTML = (b.toonies > 0) ? b.toonies : '-';
+    document.getElementById(`b${i + 1}_100`).innerHTML = (b.loonies > 0) ? b.loonies : '-';
+    document.getElementById(`b${i + 1}_025`).innerHTML = (b.quarters > 0) ? b.quarters : '-';
+    document.getElementById(`b${i + 1}`).innerHTML = `$${(b.value / 100).toFixed(2)}`
   });
+}
+
+function reset_split() {
+  document.getElementById('float_root').innerHTML = "";
+  for (let i = 0; i < 6; i++) {
+    document.getElementById(`b${i + 1}_500`).innerHTML = "";
+    document.getElementById(`b${i + 1}_200`).innerHTML = "";
+    document.getElementById(`b${i + 1}_100`).innerHTML = "";
+    document.getElementById(`b${i + 1}_025`).innerHTML = "";
+    document.getElementById(`b${i + 1}`).innerHTML = "";
+  };
 }
 
 $( function() {
@@ -152,57 +179,8 @@ $( function() {
   <body>
     <h1>Assistant Manager</h1>
     <hr/>
-    <h2>Floats</h2>
-    <div>
-      $5: <input type="text" readonly size="5" value="2">
-      $2: <input type="text" readonly size="5" value="10">
-      $1: <input type="text" readonly size="5" value="40">
-      $0.25: <input type="text" readonly size="5" value="80">
-    </div>
-
-    <table>
-      <tr>
-        <th></th></th><th>$5</th><th>$2</th><th>$1</th><th>$0.25</th>
-      </tr>
-      <tr>
-        <th>Bucket 1</th><td>1</td><td>1</td><td>5</td><td>12</td>
-      </tr>
-      <tr>
-        <th>Bucket 2</th><td>1</td><td>1</td><td>5</td><td>12</td>
-      </tr>
-      <tr>
-        <th>Bucket 3</th><td>0</td><td>2</td><td>8</td><td>12</td>
-      </tr>
-      <tr>
-        <th>Bucket 4</th><td>0</td><td>2</td><td>8</td><td>12</td>
-      </tr>
-      <tr>
-        <th>Bucket 5</th><td>0</td><td>2</td><td>7</td><td>16</td>
-      </tr>
-      <tr>
-        <th>Bucket 6 </th><td>0</td><td>2</td><td>7</td><td>16</td>
-      </tr>
-    </table>
-
-    <form onsubmit="event.preventDefault(); split();" onreset="document.getElementById('float_root').innerHTML = '';">
-        <label for="fives">$5: </label>
-        <input type="number" id="fives" name="fives" min="0" max="18" step="1" value="2">
-        <label for="toonies">$2: </label>
-        <input type="number" id="toonies" name="toonies" min="0" max="45" step="1" value="10">
-        <label for="loonies">$1: </label>
-        <input type="number" id="loonies" name="loonies" min="0" max="90" step="1" value="40">
-        <label for="quarters">$0.25: </label>
-        <input type="number" id="quarters" name="quarters" min="0" max="360" step="1" value="80">
-        <input type="submit" value="Split">
-        <input type="reset">
-    </form>
-
-    <div id="float_root">
-    </div>
-
-    <hr/>
-    <h2>Attendees</h2>
-     <form onsubmit="event.preventDefault();" onreset="document.getElementById('attendee_root').innerHTML = '';">
+    <h2>Attendees: <span style="font-style: italic;" id="attendee_root">0</span></h2>
+     <form onsubmit="event.preventDefault();" onreset="document.getElementById('attendee_root').innerHTML = '0';">
       <div class="parent">
         <div class="div1"><input id="spinner1"></div>
         <div class="div2"><input id="spinner2"></div>
@@ -242,11 +220,75 @@ $( function() {
         <div class="div36"><input id="spinner36"></div>
         <div class="div37"><input id="spinner37"></div>
       </div>
+      <br/>
       <input type="reset">
      </form>
 
-    <div id="attendee_root">
-    </div>
+    <hr/>
+    <h2>Floats</h2>
+    <table>
+      <tr>
+        <th></th><th>$5</th><th>$2</th><th>$1</th><th>$0.25</th>
+      </tr>
+      <tr>
+        <th>Bucket 1</th><td>1</td><td>1</td><td>5</td><td>12</td><th>$15</th>
+      </tr>
+      <tr>
+        <th>Bucket 2</th><td>1</td><td>1</td><td>5</td><td>12</td><th>$15</th>
+      </tr>
+      <tr>
+        <th>Bucket 3</th><td>-</td><td>2</td><td>8</td><td>12</td><th>$15</th>
+      </tr>
+      <tr>
+        <th>Bucket 4</th><td>-</td><td>2</td><td>8</td><td>12</td><th>$15</th>
+      </tr>
+      <tr>
+        <th>Bucket 5</th><td>-</td><td>2</td><td>7</td><td>16</td><th>$15</th>
+      </tr>
+      <tr>
+        <th>Bucket 6</th><td>-</td><td>2</td><td>7</td><td>16</td><th>$15</th>
+      </tr>
+      <tr>
+        <th></th><th>2</th><th>10</th><th>40</th><th>80</th>
+      </tr>
+    </table>
 
+    <form onsubmit="event.preventDefault(); split();" onreset="reset_split();">
+      <table>
+        <tr>
+          <th></th>
+          <th><label for="fives">$5</label></th>
+          <th><label for="toonies">$2</label></th>
+          <th><label for="loonies">$1</label></th>
+          <th><label for="quarters">$0.25</label></th>
+        </tr>
+        <tr>
+          <th>Bucket 1</th><td><span id="b1_500"></span></td><td><span id="b1_200"></span></td><td><span id="b1_100"></span></td><td><span id="b1_025"></span></td><th><span id="b1"></span></th>
+        </tr>
+        <tr>
+          <th>Bucket 2</th><td><span id="b2_500"></span></td><td><span id="b2_200"></span></td><td><span id="b2_100"></span></td><td><span id="b2_025"></span></td><th><span id="b2"></span></th>
+        </tr>
+        <tr>
+          <th>Bucket 3</th><td><span id="b3_500"></span></td><td><span id="b3_200"></span></td><td><span id="b3_100"></span></td><td><span id="b3_025"></span></td><th><span id="b3"></span></th>
+        </tr>
+        <tr>
+          <th>Bucket 4</th><td><span id="b4_500"></span></td><td><span id="b4_200"></span></td><td><span id="b4_100"></span></td><td><span id="b4_025"></span></td><th><span id="b4"></span></th>
+        </tr>
+        <tr>
+          <th>Bucket 5</th><td><span id="b5_500"></span></td><td><span id="b5_200"></span></td><td><span id="b5_100"></span></td><td><span id="b5_025"></span></td><th><span id="b5"></span></th>
+        </tr>
+        <tr>
+          <th>Bucket 6</th><td><span id="b6_500"></span></td><td><span id="b6_200"></span></td><td><span id="b6_100"></span></td><td><span id="b6_025"></span></td><th><span id="b6"></span></th>
+        </tr>
+        <tr>
+          <th><input type="reset"></th>
+          <th><input type="number" id="fives" name="fives" min="0" max="18" step="1" value="2"></th>
+          <th><input type="number" id="toonies" name="toonies" min="0" max="45" step="1" value="10"></th>
+          <th><input type="number" id="loonies" name="loonies" min="0" max="90" step="1" value="40"></th>
+          <th><input type="number" id="quarters" name="quarters" min="0" max="360" step="1" value="80"></th>
+          <th><input type="submit" value="Split"><span id="float_root"></span></th>
+        </tr>
+      </table>
+    </form>
   </body>
 </html>
