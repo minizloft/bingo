@@ -13,6 +13,11 @@
     <script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
       
     <style>
+      h1, h2 {
+        margin-top: 25px;
+        margin-bottom: 25px;
+        margin-left: 10px;
+      }
   table {
     margin: 25px 25px 25px 25px;
   }
@@ -26,6 +31,12 @@
     text-align: center;      /* Horizontal centering */
     vertical-align: middle;  /* Vertical centering */
     font-style: italic;
+  }
+
+  input[type="reset"], input[type="submit"] {
+    font-size: x-large;
+    padding: 2px 12px 2px 12px;
+
   }
 
   input[id^='spinner'] {
@@ -76,8 +87,76 @@ grid-row-gap: 10px;
 .div35 { grid-area: 5 / 7 / 6 / 8; }
 .div36 { grid-area: 5 / 8 / 6 / 9; }
 .div37 { grid-area: 6 / 1 / 7 / 2; }
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+button {
+  font-size: large;
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
 </style>
     <script>
+        function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
         function split() {
             reset_split();
             const fives = document.getElementById("fives").value;
@@ -178,8 +257,15 @@ $( function() {
 </head>
   <body>
     <h1>Assistant Manager</h1>
-    <hr/>
-    <h2>Attendees: <span style="font-style: italic;" id="attendee_root">0</span></h2>
+    <!-- Tab links -->
+    <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'Attendees')" id="defaultOpen">Attendees</button>
+      <button class="tablinks" onclick="openCity(event, 'Floats')">Floats</button>
+    </div>
+
+    <!-- Tab content -->
+    <div id="Attendees" class="tabcontent">
+    <h2>Counter: <span style="font-style: italic;" id="attendee_root">0</span></h2>
      <form onsubmit="event.preventDefault();" onreset="document.getElementById('attendee_root').innerHTML = '0';">
       <div class="parent">
         <div class="div1"><input id="spinner1"></div>
@@ -220,12 +306,11 @@ $( function() {
         <div class="div36"><input id="spinner36"></div>
         <div class="div37"><input id="spinner37"></div>
       </div>
-      <br/>
-      <input type="reset">
+      <h2><input type="reset"></h2>
      </form>
+    </div>
 
-    <hr/>
-    <h2>Floats</h2>
+    <div id="Floats" class="tabcontent">
     <table>
       <tr>
         <th></th><th>$5</th><th>$2</th><th>$1</th><th>$0.25</th>
@@ -282,6 +367,7 @@ $( function() {
         </tr>
         <tr>
           <th><input type="reset"></th>
+          <!--<th><input id="fives" name="fives" value="2"></th>-->
           <th><input type="number" id="fives" name="fives" min="0" max="18" step="1" value="2"></th>
           <th><input type="number" id="toonies" name="toonies" min="0" max="45" step="1" value="10"></th>
           <th><input type="number" id="loonies" name="loonies" min="0" max="90" step="1" value="40"></th>
@@ -290,5 +376,11 @@ $( function() {
         </tr>
       </table>
     </form>
+    </div>
+
+    <script>
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
   </body>
 </html>
