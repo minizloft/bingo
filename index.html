@@ -39,10 +39,11 @@
 
   }
 
-  input[id^='spinner'] {
+  input[id^='spinner'], input[id='fives'], input[id='toonies'], input[id='loonies'], input[id='quarters'] {
     width:25px;
     height:25px
   }
+
 .parent {
 display: grid;
 grid-template-columns: 0.5fr repeat(3, 1fr) 0.5fr repeat(3, 1fr);
@@ -210,13 +211,6 @@ function distributeMoney4(fives, toonies, loonies, quarters) {
     }
   })
 
-  /*root.innerHTML += "✅ Buckets distribution:";
-  buckets.forEach((b, i) => {
-    root.innerHTML += 
-      `<div>Bucket ${i + 1}: $${(b.value / 100).toFixed(2)} → ` +
-      `${b.fives}x$5, ${b.toonies}x$2, ${b.loonies}x$1, ${b.quarters}x$0.25</div>`
-    ;
-  });*/
   buckets.forEach((b, i) => {
     document.getElementById(`b${i + 1}_500`).innerHTML = (b.fives > 0) ? b.fives : '-';
     document.getElementById(`b${i + 1}_200`).innerHTML = (b.toonies > 0) ? b.toonies : '-';
@@ -252,6 +246,11 @@ $( function() {
       }
     });
   }
+
+  $( `#fives` ).spinner({ min: 0 });
+  $( `#toonies` ).spinner({ min: 0 });
+  $( `#loonies` ).spinner({ min: 0 });
+  $( `#quarters` ).spinner({ min: 0 });
 });
     </script>
 </head>
@@ -316,22 +315,22 @@ $( function() {
         <th></th><th>$5</th><th>$2</th><th>$1</th><th>$0.25</th>
       </tr>
       <tr>
-        <th>Bucket 1</th><td>1</td><td>1</td><td>5</td><td>12</td><th>$15</th>
+        <th>Bucket 1</th><td>1</td><td>1</td><td>5</td><td>12</td><th>$15.00</th>
       </tr>
       <tr>
-        <th>Bucket 2</th><td>1</td><td>1</td><td>5</td><td>12</td><th>$15</th>
+        <th>Bucket 2</th><td>1</td><td>1</td><td>5</td><td>12</td><th>$15.00</th>
       </tr>
       <tr>
-        <th>Bucket 3</th><td>-</td><td>2</td><td>8</td><td>12</td><th>$15</th>
+        <th>Bucket 3</th><td>-</td><td>2</td><td>8</td><td>12</td><th>$15.00</th>
       </tr>
       <tr>
-        <th>Bucket 4</th><td>-</td><td>2</td><td>8</td><td>12</td><th>$15</th>
+        <th>Bucket 4</th><td>-</td><td>2</td><td>8</td><td>12</td><th>$15.00</th>
       </tr>
       <tr>
-        <th>Bucket 5</th><td>-</td><td>2</td><td>7</td><td>16</td><th>$15</th>
+        <th>Bucket 5</th><td>-</td><td>2</td><td>7</td><td>16</td><th>$15.00</th>
       </tr>
       <tr>
-        <th>Bucket 6</th><td>-</td><td>2</td><td>7</td><td>16</td><th>$15</th>
+        <th>Bucket 6</th><td>-</td><td>2</td><td>7</td><td>16</td><th>$15.00</th>
       </tr>
       <tr>
         <th></th><th>2</th><th>10</th><th>40</th><th>80</th>
@@ -367,11 +366,10 @@ $( function() {
         </tr>
         <tr>
           <th><input type="reset"></th>
-          <!--<th><input id="fives" name="fives" value="2"></th>-->
-          <th><input type="number" id="fives" name="fives" min="0" max="18" step="1" value="2"></th>
-          <th><input type="number" id="toonies" name="toonies" min="0" max="45" step="1" value="10"></th>
-          <th><input type="number" id="loonies" name="loonies" min="0" max="90" step="1" value="40"></th>
-          <th><input type="number" id="quarters" name="quarters" min="0" max="360" step="1" value="80"></th>
+          <th><input id="fives" name="fives" value="2"></th>
+          <th><input id="toonies" name="fives" value="10"></th>
+          <th><input id="loonies" name="fives" value="40"></th>
+          <th><input id="quarters" name="fives" value="80"></th>
           <th><input type="submit" value="Split"><span id="float_root"></span></th>
         </tr>
       </table>
