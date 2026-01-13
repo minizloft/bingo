@@ -243,6 +243,15 @@ $( function() {
         }
         const root = document.getElementById('attendee_root');
         root.innerHTML = total;
+      },
+      change: ( event, ui ) => {
+        let total = 0;
+        for (let i = 1; i <= 37; i++) {
+          let id = `spinner${i}`
+          total += $( `#${id}` ).spinner( "value" );
+        }
+        const root = document.getElementById('attendee_root');
+        root.innerHTML = total;
       }
     });
   }
