@@ -321,67 +321,129 @@ $( function() {
     <div id="Floats" class="tabcontent">
     <table>
       <tr>
-        <th></th><th>$5</th><th>$2</th><th>$1</th><th>$0.25</th>
+        <th></th>
+        <th>Bucket 1</th>
+        <th>Bucket 2</th>
+        <th>Bucket 3</th>
+        <th>Bucket 4</th>
+        <th>Bucket 5</th>
+        <th>Bucket 6</th>
+        <th></th>
       </tr>
       <tr>
-        <th>Bucket 1</th><td>1</td><td>1</td><td>5</td><td>12</td><th>$15.00</th>
+        <th>$5</th>
+        <td>1</td>
+        <td>1</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <th>2</th>
       </tr>
       <tr>
-        <th>Bucket 2</th><td>1</td><td>1</td><td>5</td><td>12</td><th>$15.00</th>
+        <th>$2</th>
+        <td>1</td>
+        <td>1</td>
+        <td>2</td>
+        <td>2</td>
+        <td>2</td>
+        <td>2</td>
+        <th>10</th>
       </tr>
       <tr>
-        <th>Bucket 3</th><td>-</td><td>2</td><td>8</td><td>12</td><th>$15.00</th>
+        <th>$1</th>
+        <td>5</td>
+        <td>5</td>
+        <td>8</td>
+        <td>8</td>
+        <td>7</td>
+        <td>7</td>
+        <th>40</th>
       </tr>
       <tr>
-        <th>Bucket 4</th><td>-</td><td>2</td><td>8</td><td>12</td><th>$15.00</th>
+        <th>$0.25</th>
+        <td>12</td>
+        <td>12</td>
+        <td>12</td>
+        <td>12</td>
+        <td>16</td>
+        <td>16</td>
+        <th>80</th>
       </tr>
       <tr>
-        <th>Bucket 5</th><td>-</td><td>2</td><td>7</td><td>16</td><th>$15.00</th>
-      </tr>
-      <tr>
-        <th>Bucket 6</th><td>-</td><td>2</td><td>7</td><td>16</td><th>$15.00</th>
-      </tr>
-      <tr>
-        <th></th><th>2</th><th>10</th><th>40</th><th>80</th>
+        <th></th>
+        <th>$15.00</th>
+        <th>$15.00</th>
+        <th>$15.00</th>
+        <th>$15.00</th>
+        <th>$15.00</th>
+        <th>$15.00</th>
       </tr>
     </table>
 
     <form onsubmit="event.preventDefault(); split();" onreset="reset_split();">
       <table>
-        <tr>
-          <th></th>
-          <th><label for="fives">$5</label></th>
-          <th><label for="toonies">$2</label></th>
-          <th><label for="loonies">$1</label></th>
-          <th><label for="quarters">$0.25</label></th>
-        </tr>
-        <tr>
-          <th>Bucket 1</th><td><span id="b1_500"></span></td><td><span id="b1_200"></span></td><td><span id="b1_100"></span></td><td><span id="b1_025"></span></td><th><span id="b1"></span></th>
-        </tr>
-        <tr>
-          <th>Bucket 2</th><td><span id="b2_500"></span></td><td><span id="b2_200"></span></td><td><span id="b2_100"></span></td><td><span id="b2_025"></span></td><th><span id="b2"></span></th>
-        </tr>
-        <tr>
-          <th>Bucket 3</th><td><span id="b3_500"></span></td><td><span id="b3_200"></span></td><td><span id="b3_100"></span></td><td><span id="b3_025"></span></td><th><span id="b3"></span></th>
-        </tr>
-        <tr>
-          <th>Bucket 4</th><td><span id="b4_500"></span></td><td><span id="b4_200"></span></td><td><span id="b4_100"></span></td><td><span id="b4_025"></span></td><th><span id="b4"></span></th>
-        </tr>
-        <tr>
-          <th>Bucket 5</th><td><span id="b5_500"></span></td><td><span id="b5_200"></span></td><td><span id="b5_100"></span></td><td><span id="b5_025"></span></td><th><span id="b5"></span></th>
-        </tr>
-        <tr>
-          <th>Bucket 6</th><td><span id="b6_500"></span></td><td><span id="b6_200"></span></td><td><span id="b6_100"></span></td><td><span id="b6_025"></span></td><th><span id="b6"></span></th>
-        </tr>
-        <tr>
-          <th><input type="reset"></th>
-          <th><input id="fives" name="fives" value="2"></th>
-          <th><input id="toonies" name="fives" value="10"></th>
-          <th><input id="loonies" name="fives" value="40"></th>
-          <th><input id="quarters" name="fives" value="80"></th>
-          <th><input type="submit" value="Split"><span id="float_root"></span></th>
-        </tr>
-      </table>
+      <tr>
+        <th></th>
+        <th>Bucket 1</th>
+        <th>Bucket 2</th>
+        <th>Bucket 3</th>
+        <th>Bucket 4</th>
+        <th>Bucket 5</th>
+        <th>Bucket 6</th>
+      </tr>
+      <tr>
+        <th><label for="fives">$5</label></th>
+        <td><span id="b1_500"></span></td>
+        <td><span id="b2_500"></span></td>
+        <td><span id="b3_500"></span></td>
+        <td><span id="b4_500"></span></td>
+        <td><span id="b5_500"></span></td>
+        <td><span id="b6_500"></span></td>
+        <th><input id="fives" name="fives" value="2"></th>
+      </tr>
+      <tr>
+        <th><label for="toonies">$2</label></th>
+        <td><span id="b1_200"></span></td>
+        <td><span id="b2_200"></span></td>
+        <td><span id="b3_200"></span></td>
+        <td><span id="b4_200"></span></td>
+        <td><span id="b5_200"></span></td>
+        <td><span id="b6_200"></span></td>
+        <th><input id="toonies" name="fives" value="10"></th>
+      </tr>
+      <tr>
+        <th><label for="loonies">$1</label></th>
+        <td><span id="b1_100"></span></td>
+        <td><span id="b2_100"></span></td>
+        <td><span id="b3_100"></span></td>
+        <td><span id="b4_100"></span></td>
+        <td><span id="b5_100"></span></td>
+        <td><span id="b6_100"></span></td>
+        <th><input id="loonies" name="fives" value="40"></th>
+      </tr>
+      <tr>
+        <th><label for="quarters">$0.25</label></th>
+        <td><span id="b1_025"></span></td>
+        <td><span id="b2_025"></span></td>
+        <td><span id="b3_025"></span></td>
+        <td><span id="b4_025"></span></td>
+        <td><span id="b5_025"></span></td>
+        <td><span id="b6_025"></span></td>
+        <th><input id="quarters" name="fives" value="80"></th>
+      </tr>
+      <tr>
+        <th><input type="reset"></th>
+        <th><span id="b1"></span></th>
+        <th><span id="b2"></span></th>
+        <th><span id="b3"></span></th>
+        <th><span id="b4"></span></th>
+        <th><span id="b5"></span></th>
+        <th><span id="b6"></span></th>
+        <th><input type="submit" value="Split"></th>
+      </tr>
+    </table>
+    <span id="float_root"></span>
     </form>
     </div>
 
